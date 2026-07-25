@@ -1,6 +1,5 @@
 :root {
     --transition: 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-    --glass: rgba(40, 42, 44, 0.72);
     --stroke: rgba(255, 255, 255, 0.08);
 }
 
@@ -67,12 +66,13 @@ header {
     flex-direction: column;
     gap: 10px;
 
-    width: 290px;
+    width: 350px;
+    height: 500px;
     max-height: 75vh;
 
     padding: 14px;
 
-    background: var(--glass);
+    background: #282a2c;
     backdrop-filter: blur(18px) saturate(180%);
     -webkit-backdrop-filter: blur(18px) saturate(180%);
 
@@ -83,25 +83,8 @@ header {
 
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.35);
-
-    animation: drawerIn 0.35s var(--transition);
 }
 
-/* iPhone-like open animation */
-@keyframes drawerIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px) scale(0.98);
-        filter: blur(6px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-    }
-}
-
-/* GROUPS */
 .app-drawer .group {
     display: flex;
     flex-direction: column;
@@ -110,7 +93,7 @@ header {
     padding: 10px;
     border-radius: 20px;
 
-    background: rgba(255, 255, 255, 0.03);
+    background: #1b1b1b;
     border: 1px solid rgba(255, 255, 255, 0.06);
 
     position: relative;
@@ -118,15 +101,6 @@ header {
     transition: transform var(--transition),
                 background var(--transition),
                 box-shadow var(--transition);
-}
-
-/* GROUP hover = iPhone lift + glow */
-.app-drawer .group:hover {
-    transform: translateY(-2px) scale(1.01);
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.25),
-        0 0 18px rgba(255, 255, 255, 0.06);
 }
 
 /* separator line */
@@ -174,8 +148,6 @@ header {
 .app-drawer button:hover {
     background: rgba(255, 255, 255, 0.08);
 
-    transform: translateY(-2px) scale(1.02);
-
     box-shadow:
         0 10px 20px rgba(0, 0, 0, 0.25),
         0 0 12px rgba(255, 255, 255, 0.05);
@@ -209,7 +181,7 @@ header {
     .app-drawer.open {
         left: 12px;
         right: 12px;
-        top: auto;
+        top: 100px;
         bottom: 12px;
 
         width: auto;

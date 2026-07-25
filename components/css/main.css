@@ -4,7 +4,7 @@ main {
     width: calc(100% - 40px);
     max-width: 1200px;
 
-    height: calc(100vh - 250px);
+    height: calc(100vh - 200px);
 
     border-radius: 20px;
     padding: 16px;
@@ -49,8 +49,8 @@ main {
 
 @media(max-width: 600px) {
     main {
-        margin-left: 10px;
-        margin-right: 10px;
+        width: calc(100% - 20px);
+        margin: 125px 10px;
     }
 }
 

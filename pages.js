@@ -91,26 +91,6 @@ window.showComponents = showComponents
 window.showAbout = showAbout
 window.showComponent = showComponent
 
-function router() {
-    switch (getURLParam("page")) {
-        case "home":
-            showHome()
-            return
-
-        case "components":
-            showComponents()
-            return
-
-        case "about":
-            showAbout()
-            return
-
-        default:
-            showHome()
-            return
-    }
-}
-
 const menu = document.createElement("div");
 
 menu.id = "menu";
@@ -124,36 +104,35 @@ menu.innerHTML = `
 
 document.body.appendChild(menu);
 
-function showHome() {
+async function showHome() {
     scrollUp();
     setTitle("Nether Web UI")
     setContentOfMain(`
-        <h1>Nether Web UI</h1>
-        <!--<section>-->
-            <div class="cards">
-                <div class="card" title="Displays Components page">
-                    <div class="header">
-                        <img src="img/links-icons/components.svg" alt="Components page link icon">
-                        <span class="heading">Components</span>
-                    </div>
-                    <div class="body">
-                        <span class="description">List of all UI Components</span>
-                        <button onclick="showComponents()">Open Link</button>
-                    </div>
-                </div>
-                <div class="card" title="Displays About page">
-                    <div class="header">
-                        <img src="img/links-icons/about.svg" alt="About page link icon">
-                        <span class="heading">About</span>
-                    </div>
-                    <div class="body">
-                        <span class="description">Information about the project and its authors.</span>
-                        <button onclick="showAbout()">Open Link</button>
-                    </div>
-                </div>
-            </div>
-        <!--</section>-->
+        <h1>Welcome to Nether Web UI</h1>
+        <div class="cards"></div>
     `)
+
+    const db = await fetch("json/home.json").then(r => r.json());
+
+    const cards = document.querySelector(".cards");
+    
+    db.forEach(element => {
+        const card = document.createElement("div");
+
+        card.className = "card";
+        card.innerHTML = `
+           <div class="header">
+                <img src="img/links-icons/${element.techname}.svg" alt="${element.name} page link icon">
+                <span class="heading">${element.name}</span>
+            </div>
+            <div class="body">
+                <span class="description">${element.desc}</span>
+                <button onclick="${element.func}()">Open Link</button>
+            </div>
+        `;
+
+        cards.appendChild(card);
+    });
 }
 
 function showComponents() {
@@ -376,4 +355,4 @@ function showAbout() {
     `)
 }
 
-router();
+showHome();

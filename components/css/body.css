@@ -4,6 +4,8 @@ body {
 
     background: rgb(3, 3, 0);
 
+    background: linear-gradient(to bottom right, #167bff, #e70000);
+
     overflow: hidden;
     text-rendering: optimizeLegibility;
 }
