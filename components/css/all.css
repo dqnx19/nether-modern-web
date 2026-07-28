@@ -9,4 +9,6 @@
     font-family: 'Lexend', sans-serif;
     font-weight: bold;
     -webkit-font-smoothing: antialiased;
+
+    cursor: url("/img/cursors/default.cur"), auto;
 }
