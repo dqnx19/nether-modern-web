@@ -1,0 +1,20 @@
+{
+    "history": [
+        {
+            "date": "May 2026",
+            "content": "Founded"
+        },
+        {
+            "date": "May 2026",
+            "content": "Joined nether ecosystem and changed from CSS Reset to Nether Modern web"
+        },
+        {
+            "date": "July 2026",
+            "content": "Changed from Nether Modern web to Nether Web UI"
+        },
+        {
+            "date": "9 August 2026",
+            "content": "Added component api to manipulate with components or create them"
+        }
+    ]
+}

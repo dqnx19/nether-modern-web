@@ -1,49 +1,37 @@
-document.addEventListener("DOMContentLoaded", () => {
+nwui.copyBox = {
+    create(options = {}) {
+        const element = document.createElement("div");
 
-    // ČEKÁNÍ NA ELEMENTY PŘES MUTATIONOBSERVER
-    const waitFor = (selector, callback) => {
-        const el = document.querySelector(selector);
-        if (el) return callback(el);
+        element.className = `copy-box ${options.class ?? ""}`;
+        element.id = options.id ?? "";
 
-        const observer = new MutationObserver(() => {
-            const el = document.querySelector(selector);
-            if (el) {
-                observer.disconnect();
-                callback(el);
+        element.innerHTML = `
+            <div class="head">
+                <span class="language">${options.language ?? ""}</span>
+            </div>
+            <div class="body">
+                <div class="code"></div>
+            </div>
+        `;
+
+        const code = element.querySelector(".code");
+
+        if (options.render) {
+            code.innerHTML = options.code ?? "";
+        } else {
+            code.textContent = options.code ?? "";
+        }
+
+        if (options.parent) {
+            const parent = typeof options.parent === "string"
+                ? document.querySelector(options.parent)
+                : options.parent;
+
+            if (parent) {
+                parent.appendChild(element);
             }
-        });
+        }
 
-        observer.observe(document.body, { childList: true, subtree: true });
-    };
-
-    // ČEKÁME NA BUTTON
-    waitFor(".copy-box .head .copy-button", (button) => {
-
-        // A ČEKÁME NA CODE
-        waitFor(".copy-box .body .code", (code) => {
-
-            button.addEventListener("click", async () => {
-                await navigator.clipboard.writeText(code.innerHTML);
-
-                button.innerHTML = `
-                    <button class="copy-button">
-                        <img src="img/copy-icon.svg" alt="Copy Icon">
-                        Copied!
-                    </button>
-                `;
-
-                setTimeout(() => {
-                    button.innerHTML = `
-                        <button class="copy-button">
-                            <img src="img/copy-icon.svg" alt="Copy Icon">
-                            Copy
-                        </button>
-                    `;
-                }, 1500);
-            });
-
-        });
-
-    });
-
-});
+        return element;
+    }
+};

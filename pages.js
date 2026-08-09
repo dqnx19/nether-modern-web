@@ -60,12 +60,16 @@ importJSFromList([
     "components/js/menu-bar.js",
 
     "components/js/tabs-switching.js",
-    "components/js/timeline.js"
+    "components/js/timeline.js",
+
+    "lib/marked.js"
 ])
 
 setAttribute("html", "lang", "en")
 
 setFavicon("img/icons/favicon.svg")
+
+const maindb = await fetch("json/pages.json").then(r => r.json());
 
 setContentOfHeader(`
     <div class="app-drawer-wrapper"></div>
@@ -75,16 +79,17 @@ setContentOfHeader(`
 `);
 
 setContentOfFooter(`
-    <button onclick="showHome()" title="Shows Home Page">
-        <img src="img/icons/favicon.svg" alt="Nether Web UI Logo">
-    </button>
-    <button onclick="showComponents()" title="Shows Components Page">
-        <img src="img/links-icons/components.svg" alt="Components page link icon">
-    </button>
-    <button onclick="showAbout()" title="Shows About Page">
-        <img src="img/links-icons/about.svg" alt="About page link icon">
-    </button>
-`);
+        <button onclick="showHome()" title="shows home page">
+            <img src="img/icons/favicon.svg" alt="home page link icon">
+        </button>
+    `
+    +
+    maindb.map(element => `
+        <button onclick="${element.func}()" title="shows ${element.name} page">
+            <img src="img/links-icons/${element.techname}.svg" alt="${element.name} page link icon">
+        </button>
+    `).join("")
+);
 
 window.showHome = showHome
 window.showComponents = showComponents
@@ -112,16 +117,14 @@ async function showHome() {
         <div class="cards"></div>
     `)
 
-    const db = await fetch("json/home.json").then(r => r.json());
-
     const cards = document.querySelector(".cards");
 
-    db.forEach(element => {
+    maindb.forEach(element => {
         const card = document.createElement("div");
 
         card.className = "card";
         card.innerHTML = `
-           <div class="header">
+            <div class="header">
                 <img src="img/links-icons/${element.techname}.svg" alt="${element.name} page link icon">
                 <span class="heading">${element.name}</span>
             </div>
@@ -197,133 +200,105 @@ async function showComponent(nameUpperCase, nameLowerCase) {
         <h1>${nameUpperCase}</h1>
         <section>
             <div class="tabs-switching">
-                <div class="tabs">
-                    <button class="tab active" onclick="showTab('css', this)" data-tab="css">
-                        <img src="img/brands/css-logo.png" alt="CSS3 Logo">
-                        CSS
-                    </button>
-                    <button class="tab" onclick="showTab('js', this)" data-tab="js">
-                        <img src="img/brands/js-logo.png" alt="JS Logo">
-                        JS
-                    </button>
-                    <button class="tab" onclick="showTab('html', this)" data-tab="html">
-                        <img src="img/brands/html-logo.png" alt="HTML5 Logo">
-                        HTML (Example)
-                    </button>
-                </div>
-
-                <div class="tab-content active" id="css">
-                    <h2>CSS</h2>
-                    <ul>
-                        <li>Use one of the following methods to import the CSS file</li>
-                        <li>Do not use both of them</li>
-                    </ul>
-                    <br>
-                    <div class="copy-box">
-                        <div class="head">
-                            <span class="language">CSS</span>
-                        </div>
-                        <div class="body">
-                            <pre class="code css">@import url("https://web-ui.nether.click/components/css/${nameLowerCase}.css");</pre>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="copy-box">
-                        <div class="head">
-                            <span class="language">HTML</span>
-                        </div>
-                        <div class="body">
-                            <pre
-                                class="code html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://web-ui.nether.click/components/css/${nameLowerCase}.css&quot;&gt;</pre>
-                        </div>
-                    </div>
-                    <br>
-                    <p>Or copy the CSS code</p>
-                    <br>
-                    <div class="copy-box">
-                        <div class="head">
-                            <span class="language">CSS</span>
-                        </div>
-                        <div class="body">
-                            <pre class="code css" id="css"></pre>
-                        </div>
-                    </div>
-                    <br>
-                    <button>
-                        <a href="https://web-ui.nether.click/components/css/${nameLowerCase}.css" download>Download File</a>
-                    </button>
-                </div>
-                <div class="tab-content" id="js">
-                    <h2>JS</h2>
-                    <div class="copy-box">
-                        <div class="head">
-                            <span class="language">HTML</span>
-                        </div>
-                        <div class="body">
-                            <pre class="code html">&lt;script src&quot;https://web-ui.nether.click/components/js/${nameLowerCase}.js&quot;&gt;</pre>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="copy-box">
-                        <div class="head">
-                            <span class="language">JS</span>
-                        </div>
-                        <div class="body">
-                            <pre class="code js" id="js"></pre>
-                        </div>
-                    </div>
-                    <br>
-                    <button><a href="https://web-ui.nether.click/components/css/${nameLowerCase}.css" download>Download File</a></button>
-                </div>
-                <div class="tab-content" id="html">
-                    <h2>HTML (Example)</h2>
-                    <div class="copy-box">
-                        <div class="head">
-                            <span class="language">HTML</span>
-                        </div>
-                        <div class="body">
-                            <pre class="code html" type="text" id="html"></pre>
-                        </div>
-                    </div>
-                </div>
+                <div class="tabs"></div>
+                
             </div>
         </section>
     `)
 
-    await fetch(`components/css/${nameLowerCase}.css`)
+    const languages = [
+        { 
+            techname: "css",
+            name: "CSS"
+        }, 
+        { 
+            techname: "js",
+            name: "JS"
+
+        },
+        { 
+            techname: "md",
+            name: "MD"
+        }
+    ]
+
+    const tabs = document.querySelector(".tabs");
+    const tabs_switching = document.querySelector(".tabs-switching")
+
+    languages.forEach(element => {
+        const tab = document.createElement("button");
+
+        tab.className = "tab";
+        tab.onclick = () => showTab(element.techname, this);
+        tab.dataset.tab = element.techname
+        tab.innerText = element.name
+
+        tabs.appendChild(tab)
+    })
+
+    languages.forEach(element => {
+        const tab_content = document.createElement("div");
+
+        tab_content.className = "tab-content";
+        tab_content.id = element.techname;
+        tab_content.innerHTML = "";
+
+        tabs_switching.appendChild(tab_content)
+    })
+
+    const css = await fetch(`components/css/${nameLowerCase}.css`)
         .then(response => {
             if (!response.ok) return `fetching "${nameLowerCase}" failed`;
             return response.text();
         })
-        .then(data => {
-            document.querySelector(".code#css").textContent = data;
-        });
 
-    await fetch(`components/js/${nameLowerCase}.js`)
+    const js = await fetch(`components/js/${nameLowerCase}.js`)
         .then(response => {
             if (!response.ok) return `fetching "${nameLowerCase}" failed`;
             return response.text();
         })
-        .then(data => {
-            document.querySelector(".code#js").textContent = data;
-        });
 
-    await fetch(`components/md/${nameLowerCase}.md`)
+    const md = await fetch(`components/md/${nameLowerCase}.md`)
         .then(response => {
-            if (response.ok) return response.text();
-
-            return fetch(`components/html/${nameLowerCase}.html`)
-                .then(response => {
-                    if (!response.ok) return "fetching markdown and html failed";
-                    return response.text();
-                });
+            if (!response.ok) return `fetching "${nameLowerCase}" failed`;
+            return response.text();
         })
-        .then(data => {
-            document.querySelector(".code#html").textContent = data;
-        });
+
+    const cssImport1 = nwui.copyBox.create({
+        parent: ".tab-content#css",
+        language: "CSS",
+        code: `@import url("https://web-ui.nether.click/components/css/${nameLowerCase}.css");`
+    });
+
+    const cssImport2 = nwui.copyBox.create({
+        parent: ".tab-content#css",
+        language: "HTML",
+        code: `<link rel="stylesheet" href="https://web-ui.nether.click/components/css/${nameLowerCase}.css">`
+    });
+
+    const cssCode = nwui.copyBox.create({
+        parent: ".tab-content#css",
+        language: "CSS",
+        code: css
+    })
+
+    nwui.copyBox.create({
+        parent: ".tab-content#js",
+        language: "JS",
+        code: js
+    })
+
+    nwui.copyBox.create({
+        parent: ".tab-content#md",
+        language: "Markdown",
+        code: md,
+        render: true
+    })
+
+    showTab("#css")
 }
 
-function showAbout() {
+async function showAbout() {
     scrollUp()
     setTitle("About - Nether Web UI")
     setContentOfMain(`
@@ -342,27 +317,27 @@ function showAbout() {
                 </div>
                 <div class="tab-content" id="history">
                     <h2>History</h2>
-                    <div class="timeline">
-                        <div class="event">
-                            <span class="marker"></span>
-                            <span class="date">May 2026</span>
-                            <span class="content">Founded</span>
-                        </div>
-                        <div class="event">
-                            <span class="marker"></span>
-                            <span class="date">May 2026</span>
-                            <span class="content">Joined nether ecosystem and changed from CSS Reset to Nether Modern web</span>
-                        </div>
-                        <div class="event">
-                            <span class="marker"></span>
-                            <span class="date">July 2026</span>
-                            <span class="content">Changed from Nether Modern web to Nether Web UI</span>
-                        </div>
-                    </div>
+                    <div class="timeline"></div>
                 </div>
             </div>
         </section>
     `)
+
+    const db = await fetch("json/about.json").then(data => data.json());
+    const timeline = document.querySelector(".timeline")
+
+    db.history.forEach(element => {
+        const event = document.createElement("div");
+
+        event.className = "event"
+        event.innerHTML = `
+            <span class="marker"></span>
+            <span class="date">${element.date}</span>
+            <span class="content">${element.content}</span>
+        `
+        
+        timeline.appendChild(event)
+    })
 }
 
 showHome();
