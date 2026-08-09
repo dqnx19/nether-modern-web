@@ -2,10 +2,6 @@ body {
     min-width: 100vw;
     min-height: 100vh;
 
-    background: rgb(3, 3, 0);
-
-    background: linear-gradient(to bottom right, #167bff, #333333);
-
     overflow: hidden;
     text-rendering: optimizeLegibility;
 }
@@ -13,6 +9,12 @@ body {
 /* Light mode */
 @media (prefers-color-scheme: light) {
     body {
-        background-color: #ffffff;
+        background-color: #f8fafd;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1b1b1b;
     }
 }

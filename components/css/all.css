@@ -1,3 +1,5 @@
+@import url("../../fonts/lexend/lexend.css");
+
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +11,8 @@
     font-family: 'Lexend', sans-serif;
     font-weight: bold;
     -webkit-font-smoothing: antialiased;
+}
 
-    cursor: url("/img/cursors/default.cur"), auto;
+*:hover {
+    cursor: url("/img/cursors/default-32x32.png"), pointer;
 }

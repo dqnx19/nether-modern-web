@@ -1,3 +1,5 @@
+@import url("../../fonts/jetbrains-mono/jetbrains-mono.css");
+
 .copy-box {
     display: flex;
     flex-direction: column;

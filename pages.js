@@ -115,7 +115,7 @@ async function showHome() {
     const db = await fetch("json/home.json").then(r => r.json());
 
     const cards = document.querySelector(".cards");
-    
+
     db.forEach(element => {
         const card = document.createElement("div");
 
@@ -168,8 +168,9 @@ const components = [
     { label: "Body", key: "body" },
     { label: "Button", key: "button" },
     { label: "Cards", key: "cards" },
-    { label: "Context Menu", key: "Context-Menu" },
+    { label: "Context Menu", key: "context-menu" },
     { label: "Copy Box", key: "copy-box" },
+    { label: "Details Panel", key: "details-panel" },
     { label: "Footer", key: "footer" },
     { label: "Form", key: "form" },
     { label: "Grouped List", key: "grouped-list" },
@@ -177,7 +178,6 @@ const components = [
     { label: "Headings", key: "headings" },
     { label: "Img", key: "img" },
     { label: "Lists", key: "lists" },
-    { label: "Logo", key: "logo" },
     { label: "Main", key: "main" },
     { label: "Menu Bar", key: "menu-bar" },
     { label: "P (paragraph)", key: "p" },
@@ -290,27 +290,37 @@ async function showComponent(nameUpperCase, nameLowerCase) {
         </section>
     `)
 
-    await fetch("components" + "/" + "css" + "/" + nameLowerCase + ".css")
-        .then(response => response.text())
+    await fetch(`components/css/${nameLowerCase}.css`)
+        .then(response => {
+            if (!response.ok) return `fetching "${nameLowerCase}" failed`;
+            return response.text();
+        })
         .then(data => {
             document.querySelector(".code#css").textContent = data;
         });
 
-    await fetch("components" + "/" + "js" + "/" + nameLowerCase + ".js")
-        .then(response => response.text())
+    await fetch(`components/js/${nameLowerCase}.js`)
+        .then(response => {
+            if (!response.ok) return `fetching "${nameLowerCase}" failed`;
+            return response.text();
+        })
         .then(data => {
             document.querySelector(".code#js").textContent = data;
         });
 
-    await fetch("components" + "/" + "html" + "/" + nameLowerCase + ".html")
-        .then(response => response.text())
+    await fetch(`components/md/${nameLowerCase}.md`)
+        .then(response => {
+            if (response.ok) return response.text();
+
+            return fetch(`components/html/${nameLowerCase}.html`)
+                .then(response => {
+                    if (!response.ok) return "fetching markdown and html failed";
+                    return response.text();
+                });
+        })
         .then(data => {
             document.querySelector(".code#html").textContent = data;
         });
-
-    /* highlightSyntax("css", ".code.css")
-    highlightSyntax("js", ".code.js")
-    highlightSyntax("html", ".code.html") */
 }
 
 function showAbout() {
