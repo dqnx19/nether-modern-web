@@ -2,13 +2,11 @@
     {
         "techname": "components",
         "name": "Components",
-        "desc": "List of all UI Components",
         "func": "showComponents"
     },
     {
         "techname": "about",
         "name": "About",
-        "desc": "Information about the project and its authors.",
         "func": "showAbout"
     }
 ]

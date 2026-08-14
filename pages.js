@@ -120,18 +120,15 @@ async function showHome() {
     const cards = document.querySelector(".cards");
 
     maindb.forEach(element => {
-        const card = document.createElement("div");
+        const card = document.createElement("button");
 
         card.className = "card";
+        card.onclick = () => {
+            window[element.func]();
+        };
         card.innerHTML = `
-            <div class="header">
-                <img src="img/links-icons/${element.techname}.svg" alt="${element.name} page link icon">
-                <span class="heading">${element.name}</span>
-            </div>
-            <div class="body">
-                <span class="description">${element.desc}</span>
-                <button onclick="${element.func}()">Open Link</button>
-            </div>
+            <img src="img/links-icons/${element.techname}.svg" alt="${element.name} page link icon">
+            <span>${element.name}</span>
         `;
 
         cards.appendChild(card);
@@ -153,47 +150,20 @@ function showComponents() {
     components.forEach(component => {
         const button = document.createElement("button");
 
-        button.textContent = component.label;
+        button.textContent = component.name;
 
         button.className = "item"
         button.onclick = () => {
-            showComponent(component.label, component.key);
+            showComponent(component.name, component.techname);
         };
 
         container.appendChild(button);
     });
 }
 
-const components = [
-    { label: "A (Hyper Text Link)", key: "a" },
-    { label: "All", key: "all" },
-    { label: "App Drawer", key: "app-drawer" },
-    { label: "Body", key: "body" },
-    { label: "Button", key: "button" },
-    { label: "Cards", key: "cards" },
-    { label: "Context Menu", key: "context-menu" },
-    { label: "Copy Box", key: "copy-box" },
-    { label: "Details Panel", key: "details-panel" },
-    { label: "Footer", key: "footer" },
-    { label: "Form", key: "form" },
-    { label: "Grouped List", key: "grouped-list" },
-    { label: "Header", key: "header" },
-    { label: "Headings", key: "headings" },
-    { label: "Img", key: "img" },
-    { label: "Lists", key: "lists" },
-    { label: "Main", key: "main" },
-    { label: "Menu Bar", key: "menu-bar" },
-    { label: "P (paragraph)", key: "p" },
-    { label: "Payment Terminal", key: "payment-terminal" },
-    { label: "Section", key: "section" },
-    { label: "Services Icons", key: "services-icons" },
-    { label: "Table", key: "table" },
-    { label: "Tabs Switching", key: "tabs-switching" },
-    { label: "Timeline", key: "timeline" },
-    { label: "Train Formation", key: "train-formation" }
-];
+const components = await fetch("json/components.json").then(r => r.json());
 
-async function showComponent(nameUpperCase, nameLowerCase) {
+async function showComponent(nameUpperCase, nameLowerCase, tab = "css") {
     scrollUp();
     setTitle(`${nameUpperCase} - Nether Web UI`)
     setContentOfMain(`

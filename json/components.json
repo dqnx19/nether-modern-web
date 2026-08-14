@@ -1,0 +1,106 @@
+[
+    {
+        "techname": "a.css",
+        "name": "A"
+    },
+    {
+        "techname": "all.css",
+        "name": "All"
+    },
+    {
+        "techname": "app-drawer.css",
+        "name": "App Drawer"
+    },
+    {
+        "techname": "body.css",
+        "name": "Body"
+    },
+    {
+        "techname": "button.css",
+        "name": "Button"
+    },
+    {
+        "techname": "cards.css",
+        "name": "Cards"
+    },
+    {
+        "techname": "context-menu.css",
+        "name": "Context Menu"
+    },
+    {
+        "techname": "copy-box.css",
+        "name": "Copy Box"
+    },
+    {
+        "techname": "details-panel.css",
+        "name": "Details Panel"
+    },
+    {
+        "techname": "footer.css",
+        "name": "Footer"
+    },
+    {
+        "techname": "form.css",
+        "name": "Form"
+    },
+    {
+        "techname": "grouped-list.css",
+        "name": "Grouped List"
+    },
+    {
+        "techname": "header.css",
+        "name": "Header"
+    },
+    {
+        "techname": "headings.css",
+        "name": "Headings"
+    },
+    {
+        "techname": "img.css",
+        "name": "Image"
+    },
+    {
+        "techname": "lists.css",
+        "name": "Lists"
+    },
+    {
+        "techname": "main.css",
+        "name": "Main"
+    },
+    {
+        "techname": "menu-bar.css",
+        "name": "Menu Bar"
+    },
+    {
+        "techname": "p.css",
+        "name": "Paragraph"
+    },
+    {
+        "techname": "payment-terminal.css",
+        "name": "Payment Terminal"
+    },
+    {
+        "techname": "section.css",
+        "name": "Section"
+    },
+    {
+        "techname": "services-icons.css",
+        "name": "Services Icons"
+    },
+    {
+        "techname": "table.css",
+        "name": "Table"
+    },
+    {
+        "techname": "tabs-switching.css",
+        "name": "Tabs Switching"
+    },
+    {
+        "techname": "timeline.css",
+        "name": "Timeline"
+    },
+    {
+        "techname": "train-formation.css",
+        "name": "Train Formation"
+    }
+]
