@@ -1,106 +1,106 @@
 [
     {
-        "techname": "a.css",
+        "techname": "a",
         "name": "A"
     },
     {
-        "techname": "all.css",
+        "techname": "all",
         "name": "All"
     },
     {
-        "techname": "app-drawer.css",
+        "techname": "app-drawer",
         "name": "App Drawer"
     },
     {
-        "techname": "body.css",
+        "techname": "body",
         "name": "Body"
     },
     {
-        "techname": "button.css",
+        "techname": "button",
         "name": "Button"
     },
     {
-        "techname": "cards.css",
+        "techname": "cards",
         "name": "Cards"
     },
     {
-        "techname": "context-menu.css",
+        "techname": "context-menu",
         "name": "Context Menu"
     },
     {
-        "techname": "copy-box.css",
+        "techname": "copy-box",
         "name": "Copy Box"
     },
     {
-        "techname": "details-panel.css",
+        "techname": "details-panel",
         "name": "Details Panel"
     },
     {
-        "techname": "footer.css",
+        "techname": "footer",
         "name": "Footer"
     },
     {
-        "techname": "form.css",
+        "techname": "form",
         "name": "Form"
     },
     {
-        "techname": "grouped-list.css",
+        "techname": "grouped-list",
         "name": "Grouped List"
     },
     {
-        "techname": "header.css",
+        "techname": "header",
         "name": "Header"
     },
     {
-        "techname": "headings.css",
+        "techname": "headings",
         "name": "Headings"
     },
     {
-        "techname": "img.css",
+        "techname": "img",
         "name": "Image"
     },
     {
-        "techname": "lists.css",
+        "techname": "lists",
         "name": "Lists"
     },
     {
-        "techname": "main.css",
+        "techname": "main",
         "name": "Main"
     },
     {
-        "techname": "menu-bar.css",
+        "techname": "menu-bar",
         "name": "Menu Bar"
     },
     {
-        "techname": "p.css",
+        "techname": "p",
         "name": "Paragraph"
     },
     {
-        "techname": "payment-terminal.css",
+        "techname": "payment-terminal",
         "name": "Payment Terminal"
     },
     {
-        "techname": "section.css",
+        "techname": "section",
         "name": "Section"
     },
     {
-        "techname": "services-icons.css",
+        "techname": "services-icons",
         "name": "Services Icons"
     },
     {
-        "techname": "table.css",
+        "techname": "table",
         "name": "Table"
     },
     {
-        "techname": "tabs-switching.css",
+        "techname": "tabs-switching",
         "name": "Tabs Switching"
     },
     {
-        "techname": "timeline.css",
+        "techname": "timeline",
         "name": "Timeline"
     },
     {
-        "techname": "train-formation.css",
+        "techname": "train-formation",
         "name": "Train Formation"
     }
 ]

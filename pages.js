@@ -177,20 +177,46 @@ async function showComponent(nameUpperCase, nameLowerCase, tab = "css") {
     `)
 
     const languages = [
-        { 
+        {
             techname: "css",
             name: "CSS"
-        }, 
-        { 
+        },
+        {
             techname: "js",
             name: "JS"
 
         },
-        { 
+        {
             techname: "md",
-            name: "MD"
+            name: "Readme"
         }
     ]
+
+    marked.use({
+        renderer: {
+            code({ text, lang }) {
+                const escapeHtml = (text) => {
+                    return text
+                        .replaceAll("&", "&amp;")
+                        .replaceAll("<", "&lt;")
+                        .replaceAll(">", "&gt;")
+                        .replaceAll('"', "&quot;")
+                        .replaceAll("'", "&#039;");
+                };
+
+                return `
+                <div class="copy-box">
+                    <div class="head">
+                        <span class="language">${escapeHtml(lang || "")}</span>
+                    </div>
+                    <div class="body">
+                        <div class="code">${escapeHtml(text)}</div>
+                    </div>
+                </div>
+            `;
+            }
+        }
+    });
 
     const tabs = document.querySelector(".tabs");
     const tabs_switching = document.querySelector(".tabs-switching")
@@ -234,19 +260,19 @@ async function showComponent(nameUpperCase, nameLowerCase, tab = "css") {
             return response.text();
         })
 
-    const cssImport1 = nwui.copyBox.create({
+    nwui.copyBox.create({
         parent: ".tab-content#css",
         language: "CSS",
         code: `@import url("https://web-ui.nether.click/components/css/${nameLowerCase}.css");`
     });
 
-    const cssImport2 = nwui.copyBox.create({
+    nwui.copyBox.create({
         parent: ".tab-content#css",
         language: "HTML",
         code: `<link rel="stylesheet" href="https://web-ui.nether.click/components/css/${nameLowerCase}.css">`
     });
 
-    const cssCode = nwui.copyBox.create({
+    nwui.copyBox.create({
         parent: ".tab-content#css",
         language: "CSS",
         code: css
@@ -258,14 +284,10 @@ async function showComponent(nameUpperCase, nameLowerCase, tab = "css") {
         code: js
     })
 
-    nwui.copyBox.create({
-        parent: ".tab-content#md",
-        language: "Markdown",
-        code: md,
-        render: true
-    })
+    const readme = document.querySelector("#md")
+    readme.innerHTML = marked.parse(md)
 
-    showTab("#css")
+    showTab(tab)
 }
 
 async function showAbout() {
@@ -305,7 +327,7 @@ async function showAbout() {
             <span class="date">${element.date}</span>
             <span class="content">${element.content}</span>
         `
-        
+
         timeline.appendChild(event)
     })
 }
