@@ -13,8 +13,11 @@ document.addEventListener("click", (e) => {
 });
 
 nwui.appDrawer = {
-    create(options = []) {
+    create(options = {}) {
         const element = document.createElement("div");
+        
+        element.classList.add(options.class);
+        element.id = options.id;
 
         element.className = "app-drawer-wrapper";
         element.innerHTML = `
@@ -28,10 +31,6 @@ nwui.appDrawer = {
             </button>
             <div class="app-drawer">
                 <button onclick="nwui.appDrawer.toggle()" class="app-drawer-button"></button>
-                <a href="https://example.com">
-                    <img src="" alt="App 1 Icon">
-                    App 1
-                </a>
             </div>
         </div>
         `
@@ -39,7 +38,7 @@ nwui.appDrawer = {
         const app_drawer = document.querySelector(".app-drawer");
         
 
-        options.forEach(app => {
+        options.apps.forEach(app => {
             const appButton = document.createElement("a");
 
             appButton.href = app.link;
@@ -50,6 +49,16 @@ nwui.appDrawer = {
 
             app_drawer.appendChild(appButton)
         });
+
+        if (options.parent) {
+            const parent = typeof options.parent === "string"
+                ? document.querySelector(options.parent)
+                : options.parent;
+
+            if (parent) {
+                parent.appendChild(element);
+            }
+        }
     },
     
     toggle(options = {}) {

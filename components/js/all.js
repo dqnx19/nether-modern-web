@@ -1,2 +1,1 @@
-// Nothing here
-window.nwui = {};
+window.nwui = {}

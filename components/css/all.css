@@ -12,7 +12,3 @@
     font-weight: bold;
     -webkit-font-smoothing: antialiased;
 }
-
-*:hover {
-    cursor: url("/img/cursors/default-32x32.png"), pointer;
-}

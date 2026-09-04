@@ -1,6 +1,6 @@
-import { highlightSyntax, setFavicon, setAttribute, setTitle, scrollUp, setContentOfHeader, setContentOfMain, setContentOfFooter, importCSSFromList, importJSFromList, getURLParam } from "https://js.nether.click/nether.js"
+import { setFavicon, setAttribute, setTitle, scrollUp, setContentOfHeader, setContentOfMain, setContentOfFooter, importCSSFromList, importJSFromList, getURLParam } from "https://js.nether.click/nether.js"
 
-importCSSFromList([
+await importCSSFromList([
     "fonts/lexend/lexend.css",
 
     "components/css/a.css",
@@ -35,12 +35,13 @@ importCSSFromList([
     "components/css/services-icons.css",
 
     "components/css/table.css",
-    "components/css/tabs-switching.css",
+    "components/css/tabs.css",
     "components/css/timeline.css",
+    "components/css/popup.css",
     "components/css/train-formation.css"
 ])
 
-importJSFromList([
+await importJSFromList([
     "https://nether.click/js/import-app-drawer.js",
     "https://nether.click/js/import-app-check.js",
 
@@ -59,8 +60,9 @@ importJSFromList([
 
     "components/js/menu-bar.js",
 
-    "components/js/tabs-switching.js",
+    "components/js/tabs.js",
     "components/js/timeline.js",
+    "components/js/popup.js",
 
     "lib/marked.js"
 ])
@@ -85,7 +87,7 @@ setContentOfFooter(`
     `
     +
     maindb.map(element => `
-        <button onclick="${element.func}()" title="shows ${element.name} page">
+        <button onclick="${element.func}()" title="Shows ${element.name} page">
             <img src="img/links-icons/${element.techname}.svg" alt="${element.name} page link icon">
         </button>
     `).join("")
@@ -96,18 +98,13 @@ window.showComponents = showComponents
 window.showAbout = showAbout
 window.showComponent = showComponent
 
-const menu = document.createElement("div");
+console.log("nwui is" + typeof nwui)
 
-menu.id = "menu";
-menu.className = "context-menu";
-
-menu.innerHTML = `
-    <button onclick="location.reload()">Refresh</button>
-    <button onclick="copyURL()">Copy URL</button>
-    <button onclick="copy()">Copy</button>
-`;
-
-document.body.appendChild(menu);
+nwui.copyBox.create({
+    parent: document.body,
+    language: "idk",
+    code: "kokot"
+})
 
 async function showHome() {
     scrollUp();
@@ -135,7 +132,7 @@ async function showHome() {
     });
 }
 
-function showComponents() {
+async function showComponents() {
     scrollUp();
     setTitle("Components - Nether Web UI")
     setContentOfMain(`
@@ -147,21 +144,19 @@ function showComponents() {
 
     const container = document.getElementById("components-list");
 
+    const components = await fetch("json/components.json").then(r => r.json());
+
     components.forEach(component => {
         const button = document.createElement("button");
 
         button.textContent = component.name;
 
         button.className = "item"
-        button.onclick = () => {
-            showComponent(component.name, component.techname);
-        };
+        button.onclick = () => showComponent(component.name, component.techname);
 
         container.appendChild(button);
     });
 }
-
-const components = await fetch("json/components.json").then(r => r.json());
 
 async function showComponent(nameUpperCase, nameLowerCase, tab = "css") {
     scrollUp();
@@ -171,7 +166,6 @@ async function showComponent(nameUpperCase, nameLowerCase, tab = "css") {
         <section>
             <div class="tabs-switching">
                 <div class="tabs"></div>
-                
             </div>
         </section>
     `)
