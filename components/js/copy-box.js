@@ -1,3 +1,5 @@
+window.nwui = window.nwui || {};
+
 nwui.copyBox = {
     create(options = {}) {
         const element = document.createElement("div");

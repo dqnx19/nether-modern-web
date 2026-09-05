@@ -1,4 +1,4 @@
-import { setFavicon, setAttribute, setTitle, scrollUp, setContentOfHeader, setContentOfMain, setContentOfFooter, importCSSFromList, importJSFromList, getURLParam } from "https://js.nether.click/nether.js"
+import { createElement, importCSSFromList, importJSFromList, setFavicon, setAttribute, setTitle, scrollUp, setContentOfHeader, setContentOfMain, setContentOfFooter, /* importCSSFromList, importJSFromList */ getURLParam } from "https://js.nether.click/nether.js"
 
 await importCSSFromList([
     "fonts/lexend/lexend.css",
@@ -52,11 +52,13 @@ await importJSFromList([
     "components/js/body.js",
     "components/js/button.js",
 
-    "components/js/context-menu.js",
+    "components/js/cards.js",
     "components/js/copy-box.js",
 
     "components/js/footer.js",
     "components/js/form.js",
+
+    "components/js/headings.js",
 
     "components/js/menu-bar.js",
 
@@ -87,7 +89,7 @@ setContentOfFooter(`
     `
     +
     maindb.map(element => `
-        <button onclick="${element.func}()" title="Shows ${element.name} page">
+        <button onclick="${element.func}" title="Shows ${element.name} page">
             <img src="img/links-icons/${element.techname}.svg" alt="${element.name} page link icon">
         </button>
     `).join("")
@@ -98,107 +100,19 @@ window.showComponents = showComponents
 window.showAbout = showAbout
 window.showComponent = showComponent
 
-console.log("nwui is" + typeof nwui)
+marked.use({
+    renderer: {
+        code({ text, lang }) {
+            const escapeHtml = (text) => {
+                return text
+                    .replaceAll("&", "&amp;")
+                    .replaceAll("<", "&lt;")
+                    .replaceAll(">", "&gt;")
+                    .replaceAll('"', "&quot;")
+                    .replaceAll("'", "&#039;");
+            };
 
-nwui.copyBox.create({
-    parent: document.body,
-    language: "idk",
-    code: "kokot"
-})
-
-async function showHome() {
-    scrollUp();
-    setTitle("Nether Web UI")
-    setContentOfMain(`
-        <h1>Welcome to Nether Web UI</h1>
-        <div class="cards"></div>
-    `)
-
-    const cards = document.querySelector(".cards");
-
-    maindb.forEach(element => {
-        const card = document.createElement("button");
-
-        card.className = "card";
-        card.onclick = () => {
-            window[element.func]();
-        };
-        card.innerHTML = `
-            <img src="img/links-icons/${element.techname}.svg" alt="${element.name} page link icon">
-            <span>${element.name}</span>
-        `;
-
-        cards.appendChild(card);
-    });
-}
-
-async function showComponents() {
-    scrollUp();
-    setTitle("Components - Nether Web UI")
-    setContentOfMain(`
-        <h1>Components</h1>
-        <section> 
-            <div class="grouped-list" id="components-list"></div>
-        </section>
-    `)
-
-    const container = document.getElementById("components-list");
-
-    const components = await fetch("json/components.json").then(r => r.json());
-
-    components.forEach(component => {
-        const button = document.createElement("button");
-
-        button.textContent = component.name;
-
-        button.className = "item"
-        button.onclick = () => showComponent(component.name, component.techname);
-
-        container.appendChild(button);
-    });
-}
-
-async function showComponent(nameUpperCase, nameLowerCase, tab = "css") {
-    scrollUp();
-    setTitle(`${nameUpperCase} - Nether Web UI`)
-    setContentOfMain(`
-        <h1>${nameUpperCase}</h1>
-        <section>
-            <div class="tabs-switching">
-                <div class="tabs"></div>
-            </div>
-        </section>
-    `)
-
-    const languages = [
-        {
-            techname: "css",
-            name: "CSS"
-        },
-        {
-            techname: "js",
-            name: "JS"
-
-        },
-        {
-            techname: "md",
-            name: "Readme"
-        }
-    ]
-
-    marked.use({
-        renderer: {
-            code({ text, lang }) {
-                const escapeHtml = (text) => {
-                    return text
-                        .replaceAll("&", "&amp;")
-                        .replaceAll("<", "&lt;")
-                        .replaceAll(">", "&gt;")
-                        .replaceAll('"', "&quot;")
-                        .replaceAll("'", "&#039;");
-                };
-
-                return `
+            return `
                 <div class="copy-box">
                     <div class="head">
                         <span class="language">${escapeHtml(lang || "")}</span>
@@ -208,80 +122,63 @@ async function showComponent(nameUpperCase, nameLowerCase, tab = "css") {
                     </div>
                 </div>
             `;
-            }
         }
+    }
+});
+
+async function showHome() {
+    scrollUp();
+    setTitle("Nether Web UI");
+    setContentOfMain("");
+
+    nwui.headings.create({
+        level: 1,
+        content: "Welcome to Nether Web UI",
+        parent: "main",
     });
 
-    const tabs = document.querySelector(".tabs");
-    const tabs_switching = document.querySelector(".tabs-switching")
-
-    languages.forEach(element => {
-        const tab = document.createElement("button");
-
-        tab.className = "tab";
-        tab.onclick = () => showTab(element.techname, this);
-        tab.dataset.tab = element.techname
-        tab.innerText = element.name
-
-        tabs.appendChild(tab)
-    })
-
-    languages.forEach(element => {
-        const tab_content = document.createElement("div");
-
-        tab_content.className = "tab-content";
-        tab_content.id = element.techname;
-        tab_content.innerHTML = "";
-
-        tabs_switching.appendChild(tab_content)
-    })
-
-    const css = await fetch(`components/css/${nameLowerCase}.css`)
-        .then(response => {
-            if (!response.ok) return `fetching "${nameLowerCase}" failed`;
-            return response.text();
-        })
-
-    const js = await fetch(`components/js/${nameLowerCase}.js`)
-        .then(response => {
-            if (!response.ok) return `fetching "${nameLowerCase}" failed`;
-            return response.text();
-        })
-
-    const md = await fetch(`components/md/${nameLowerCase}.md`)
-        .then(response => {
-            if (!response.ok) return `fetching "${nameLowerCase}" failed`;
-            return response.text();
-        })
-
-    nwui.copyBox.create({
-        parent: ".tab-content#css",
-        language: "CSS",
-        code: `@import url("https://web-ui.nether.click/components/css/${nameLowerCase}.css");`
+    nwui.cards.create({
+        parent: "main",
     });
 
-    nwui.copyBox.create({
-        parent: ".tab-content#css",
-        language: "HTML",
-        code: `<link rel="stylesheet" href="https://web-ui.nether.click/components/css/${nameLowerCase}.css">`
+    maindb.forEach(page => {
+        nwui.cards.addCard({
+            onclick: page.func,
+            image: `img/links-icons/${page.techname}.svg`,
+            heading: page.name,
+            parent: ".cards"
+        })
     });
+}
 
-    nwui.copyBox.create({
-        parent: ".tab-content#css",
-        language: "CSS",
-        code: css
+async function showComponents() {
+    scrollUp();
+    setTitle("Components - Nether Web UI");
+    setContentOfMain("");
+
+    nwui.headings.create({
+        level: 1,
+        content: "Components",
+        parent: "main"
     })
 
-    nwui.copyBox.create({
-        parent: ".tab-content#js",
-        language: "JS",
-        code: js
+    nwui.tabs.create({
+        parent: "main",
+        id: "components"
     })
 
-    const readme = document.querySelector("#md")
-    readme.innerHTML = marked.parse(md)
+    const components = await fetch("json/components.json").then(r => r.json());
 
-    showTab(tab)
+    components.forEach(async component => {
+        const readme = await fetch(`components/md/${component.techname}.md`).then(r => r.text());
+
+        nwui.tabs.addTab({
+            title: component.name,
+            id: component.techname,
+            parent: "#components",
+            innerHTML: marked.parse(readme)
+        })
+    })
 }
 
 async function showAbout() {

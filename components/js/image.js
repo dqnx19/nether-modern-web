@@ -1,3 +1,5 @@
+window.nwui = window.nwui || {};
+
 nwui.image = {
     create(options = {}) {
         const image = document.createElement("img");

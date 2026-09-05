@@ -1,16 +1,18 @@
 .tabs {
     display: flex;
-    gap: 5px;
+    flex-direction: column;
+}
 
+.tabs .buttons {
+    display: flex;
+    gap: 5px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     overflow: visible;
     overflow-x: auto;
 }
 
-
-
-.tab {
+.tabs .buttons .button {
     border: none;
     background: transparent;
     cursor: pointer;
@@ -28,12 +30,12 @@
     flex-direction: row;
 }
 
-.tab.active {
+.tabs .buttons .button.active {
     background-color: #0078d7;
     font-weight: bold;
 }
 
-.tab img {
+.tabs .buttons img {
     width: 32px;
     height: 32px;
 
@@ -41,18 +43,16 @@
     filter: brightness(0);
 }
 
-@media (prefers-color-scheme: dark) {
-    .tab img {
-        filter: brightness(0) invert(1);
-    }
+.tabs .contents {
+    display: flex;
 }
 
-.tab-content {
+.tabs .contents .content {
     display: none;
     padding: 20px;
 }
 
-.tab-content.active {
+.tabs .contents .content.active {
     display: block;
 }
 
@@ -78,15 +78,4 @@
 
 .tabs::-webkit-scrollbar-corner {
     background: transparent;
-}
-
-@media (prefers-color-scheme: light) {
-    .tab {
-        color: black;
-    }
-
-    .tab:hover {
-        background-color: #cacaca;
-    }
-
 }

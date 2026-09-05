@@ -1,3 +1,5 @@
+window.nwui = window.nwui || {};
+
 nwui.headings = {
     create(options = {}) {
         const heading = document.createElement(`h${options.level}`);

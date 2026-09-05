@@ -1,28 +1,30 @@
-## Code example
+## API - Create
 
-```html
-<div class="cards">
-    <div class="card">
-        <div class="header">
-            <img src="path/to/image.png" alt="">
-            <span class="heading">Card 1 Heading</span>
-        </div>
-        <div class="body">
-            <span class="description">Card 1 Description</span>
-            <a href="https://example.com">Open Link</button>
-        </div>
-    </div>
-    <div class="card">
-        <div class="header">
-            <img src="path/to/image.png" alt="">
-            <span class="heading">Card 2 Heading</span>
-        </div>
-        <div class="body">
-            <span class="description">Card 2 Description</span>
-            <a href="https://example.com">Open Link</button>
-        </div>
-    </div>
-</div>
+```JAVASCRIPT
+nwui.cards.create({
+    parent: "",
+    class: "",
+    id: "",
+    cards: [
+        {
+            class: "",
+            id: "",
+            onclick: "",
+            image: "",
+            heading: ""
+        }
+    ]
+})
 ```
 
-## API - Create 
+## API - addCard
+
+```JAVASCRIPT
+nwui.cards.addCard({
+    class: "",
+    id: "",
+    onclick: "",
+    image: "",
+    heading: "",
+    parent: ""
+})

@@ -2,11 +2,11 @@
     {
         "techname": "components",
         "name": "Components",
-        "func": "showComponents"
+        "func": "showComponents()"
     },
     {
         "techname": "about",
         "name": "About",
-        "func": "showAbout"
+        "func": "showAbout()"
     }
 ]

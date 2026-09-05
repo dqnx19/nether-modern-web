@@ -29,6 +29,15 @@
     font-size: px;
 }
 
+.card img {
+    width: 64px;
+    height: 64px;
+}
+
+.card .heading {
+    font-size: 32px;
+}
+
 .card:hover {
     background-color: #2d2e2e;
 }

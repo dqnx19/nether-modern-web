@@ -1,4 +1,6 @@
-window.nwui.popup = {
+window.nwui = window.nwui || {};
+
+nwui.popup = {
     create(options = {}) {
         const element = document.createElement("div");
 

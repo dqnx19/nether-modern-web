@@ -12,6 +12,8 @@ document.addEventListener("click", (e) => {
     }
 });
 
+window.nwui = window.nwui || {};
+
 nwui.appDrawer = {
     create(options = {}) {
         const element = document.createElement("div");
