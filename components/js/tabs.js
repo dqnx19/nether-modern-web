@@ -112,6 +112,7 @@ nwui.tabs = {
 
         if (options.id) {
             content.dataset.tabId = options.id;
+            content.id = options.id;
         }
 
         content.innerHTML = options.innerHTML ?? "";

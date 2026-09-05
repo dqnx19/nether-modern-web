@@ -98,7 +98,6 @@ setContentOfFooter(`
 window.showHome = showHome
 window.showComponents = showComponents
 window.showAbout = showAbout
-window.showComponent = showComponent
 
 marked.use({
     renderer: {
@@ -182,44 +181,50 @@ async function showComponents() {
 }
 
 async function showAbout() {
-    scrollUp()
-    setTitle("About - Nether Web UI")
-    setContentOfMain(`
-        <h1>About</h1>
-        <section>
-            <div class="tabs-switching">
-                <div class="tabs">
-                    <button class="tab active" onclick="showTab('what_is_nether_web_ui', this)" data-tab="what_is_nether_web_ui">What is Nether Web UI</button>
-                    <button class="tab" onclick="showTab('history', this)" data-tab="history">History</button>
-                </div>
-                <div class="tab-content active" id="what_is_nether_web_ui">
-                    <h2>What is Nether Web UI</h2>
+    scrollUp();
+    setTitle("About - Nether Web UI");
+    setContentOfMain("");
+
+    nwui.headings.create({
+        level: 1,
+        parent: "main",
+        content: "About"
+    })
+
+    nwui.tabs.create({
+        parent: "main",
+        id: "about",
+        tabs: [
+            {
+                title: "What is Nether Web UI",
+                id: "what_is_nether_web_ui",
+                innerHTML: `
                     <ul>
                         <li>Web service providing free css and js components and basic styles for web developement</li>
                     </ul>
-                </div>
-                <div class="tab-content" id="history">
-                    <h2>History</h2>
-                    <div class="timeline"></div>
-                </div>
-            </div>
-        </section>
-    `)
+                `
+            },
+            {
+                title: "History",
+                id: "history",
+                innerHTML: ``
+            }
+        ]
+    })
 
     const db = await fetch("json/about.json").then(data => data.json());
-    const timeline = document.querySelector(".timeline")
 
-    db.history.forEach(element => {
-        const event = document.createElement("div");
+    nwui.timeline.create({
+        parent: "#history",
+        id: "timeline",
+    })
 
-        event.className = "event"
-        event.innerHTML = `
-            <span class="marker"></span>
-            <span class="date">${element.date}</span>
-            <span class="content">${element.content}</span>
-        `
-
-        timeline.appendChild(event)
+    db.history.forEach(event => {
+        nwui.timeline.addEvent({
+            parent: "#timeline",
+            date: event.date,
+            description: event.content
+        })
     })
 }
 

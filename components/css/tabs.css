@@ -47,7 +47,7 @@
     display: flex;
 }
 
-.tabs .contents .content {
+.tabs .contents > .content {
     display: none;
     padding: 20px;
 }
