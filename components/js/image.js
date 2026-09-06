@@ -9,6 +9,7 @@ nwui.image = {
         image.src = options.source || "https://web-ui.nether.click/img/image-load-failed.png";
         image.alt = options.alt || "";
         image.width = options.width || "";
+        image.height = options.height || "";
         image.title = options.title || "";
 
         if (typeof options.parent === "string") {
@@ -18,5 +19,17 @@ nwui.image = {
         }
 
         return image;
+    },
+
+    changeSrc(options = {}) {
+        if (options.selector) {
+            const selector = typeof options.selector === "string"
+                ? document.querySelector(options.selector)
+                : options.selector;
+
+            if (selector instanceof HTMLImageElement) {
+                selector.src = options.src;
+            }
+        }
     }
 };

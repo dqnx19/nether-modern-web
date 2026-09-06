@@ -1,5 +1,6 @@
-/* ===== MENU BAR ===== */
 .menu-bar {
+    all: unset;
+    
     display: flex;
     flex-direction: row;
     gap: 6px;
@@ -13,8 +14,9 @@
     align-items: center;
 }
 
-/* ===== MENU ITEM ===== */
 .menu-item {
+    all: unset;
+
     position: relative;
 
     padding: 5px 8px;
@@ -30,11 +32,15 @@
 }
 
 .menu-item:hover {
+    all: unset;
+
     background-color: blueviolet;
 }
 
 /* ===== DROPDOWN ===== */
 .menu-item .dropdown {
+    all: unset;
+
     display: none;
 
     position: absolute;
@@ -61,11 +67,15 @@
 
 /* zobraz dropdown při hoveru */
 .menu-item:hover .dropdown, .dropdown:hover {
+    all: unset;
+
     display: flex;
 }
 
 /* ===== DROPDOWN BUTTONS ===== */
 .menu-item .dropdown button {
+    all: unset;
+
     width: 100%;
 
     padding: 4px 6px;
@@ -83,5 +93,7 @@
 }
 
 .menu-item .dropdown button:hover {
+    all: unset;
+
     background-color: rgba(255, 255, 255, 0.15);
 }

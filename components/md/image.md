@@ -1,18 +1,23 @@
-## Code example
-
-```html
-<img src="image.png" alt="alternate text">
-```
-
-## API - Create
+## API - create
 
 ```javascript
 nwui.image.create({
-    source:      // String - Image URL
-    alt:         // String - Alternative text
-    title:       // String - Image title
-    width:       // Number - Image width
-    class:       // String - CSS class
-    id:          // String - Element ID
-    parent:      // String or HTMLElement - Parent element
+    class: "",
+    id: "",
+    source: "",
+    alt: "",
+    width: "",
+    height: "",
+    title: "",
+    parent: ""
 })
+```
+
+## API - changeSrc
+
+```javascript
+nwui.image.changeSrc({
+    selector: "",
+    src: ""
+})
+```

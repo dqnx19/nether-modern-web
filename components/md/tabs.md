@@ -1,4 +1,4 @@
-## API - Create
+## API - create
 
 ```javascript
 nwui.tabs.create({
@@ -9,6 +9,8 @@ nwui.tabs.create({
         {
             class: "",
             id: "",
+            title: "",
+            image: "",
             innerHTML: ""
         }
     ]
@@ -21,6 +23,8 @@ nwui.tabs.create({
 nwui.tabs.addTab({
     class: "",
     id: "",
+    title: "",
+    image: "",
     parent: "",
     innerHTML: ""
 })
@@ -30,6 +34,6 @@ nwui.tabs.addTab({
 
 ```javascript
 nwui.tabs.displayTab({
-    selector: "",
+    selector: ""
 })
 ```
