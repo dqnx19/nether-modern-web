@@ -13,19 +13,21 @@ nwui.detailsPanel = {
             detailsPanel.id = options.id;
         }
 
-        options.details.forEach(detailSrc => {
-            const detail = document.createElement("div");
-            detail.className = "detail";
-            detailsPanel.appendChild(detail);
+        if (options.details) {
+            options.details.forEach(detailSrc => {
+                const detail = document.createElement("div");
+                detail.className = "detail";
+                detailsPanel.appendChild(detail);
 
-            const image = document.createElement("img");
-            image.src = detailSrc.image;
-            detail.appendChild(image);
+                const image = document.createElement("img");
+                image.src = detailSrc.image;
+                detail.appendChild(image);
 
-            const text = document.createElement("span");
-            text.textContent = detailSrc.text;
-            detail.appendChild(text);
-        });
+                const text = document.createElement("span");
+                text.textContent = detailSrc.text;
+                detail.appendChild(text);
+            });
+        };
 
         if (options.parent) {
             const parent = typeof options.parent === "string"
