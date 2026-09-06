@@ -26,6 +26,16 @@ nwui.detailsPanel = {
             text.textContent = detailSrc.text;
             detail.appendChild(text);
         });
+
+        if (options.parent) {
+            const parent = typeof options.parent === "string"
+                ? document.querySelector(options.parent)
+                : options.parent;
+
+            if (parent) {
+                parent.appendChild(detailsPanel);
+            }
+        }
     },
 
     addDetail(options = {}) {

@@ -2,6 +2,7 @@
 
 ```javascript
 nwui.detailsPanel.create({
+    parent: "",
     class: "",
     id: "",
     details: [
